@@ -616,7 +616,7 @@
 
                 <div class="divider divider-wide"></div>
 
-                <h2 class="invite-guest-name">Convidado Especial</h2>
+                <h2 class="invite-guest-name" id="nomeConvidado">Convidado Especial</h2>
 
                 <div class="divider divider-narrow"></div>
 
@@ -656,7 +656,35 @@
         </div>
     </div>
 
+    <audio id="musicaFundo" preload="auto">
+        <source src="Brotherhood - Simon Daum (Celtic Music).mp3" type="audio/mpeg">
+    </audio>
+
     <script>
+        const params = new URLSearchParams(window.location.search);
+        const nome = params.get("nome");
+        const inviteRoot = document.getElementById("inviteRoot");
+    const musica = document.getElementById("musicaFundo");
+
+    inviteRoot.addEventListener("click", function () {
+        // PRIMEIRO CLIQUE → abre + toca música
+        if (!inviteRoot.classList.contains("opened")) {
+            inviteRoot.classList.add("opened");
+
+            if (musica) {
+                musica.volume = 0.5; // volume de 0 a 1
+                musica.play().catch(() => {});
+            }
+        } 
+        // SEGUNDO CLIQUE → redireciona
+        else {
+            const url = "https://casamento-bruna-luis.github.io/?" + params.toString();
+            window.location.href = url;
+        }
+    });
+        if (nome) {
+            document.getElementById("nomeConvidado").textContent = decodeURIComponent(nome);
+        }
         // Initialize petals
         function initializePetals() {
             const petalsContainer = document.getElementById('petalsContainer');
