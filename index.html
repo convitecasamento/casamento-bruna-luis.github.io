@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Convite Bruna & Luis Fernando</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Caudex:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Caudex', serif;
+            overflow: hidden;
+        }
+
+        .invite-root {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: #1a0f05;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* ===== BACKGROUNDS ===== */
+        .stone-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663394319893/5aDypHqp9Vv4sZjfr7UwPE/gothic-stone-bg-V3V3ZePUr29Ry5AdR3gL6t.webp');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+        }
+
+        .dark-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: radial-gradient(ellipse at center, rgba(26, 15, 5, 0.4) 0%, rgba(26, 15, 5, 0.92) 100%);
+        }
+
+        .warm-glow {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: radial-gradient(ellipse 40% 50% at center, rgba(201, 168, 76, 0.08) 0%, transparent 100%);
+            transition: opacity 1.5s ease;
+        }
+
+        .invite-root.opened .warm-glow {
+            opacity: 0;
+        }
+
+        .vignette {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+        }
+
+        /* ===== FALLING PETALS ===== */
+        .petals-container {
+            position: absolute;
+            inset: 0;
+            z-index: 8;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1s ease 0.5s;
+        }
+
+        .invite-root.opened .petals-container {
+            opacity: 1;
+        }
+
+        .petal {
+            position: absolute;
+            top: -60px;
+            border-radius: 50% 0 50% 50%;
+            opacity: 0;
+            filter: blur(0.2px);
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            8% {
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateY(25vh) translateX(30px) rotate(180deg) scale(0.9);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(50vh) translateX(-20px) rotate(360deg) scale(0.75);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateY(75vh) translateX(15px) rotate(540deg) scale(0.5);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(110vh) translateX(-10px) rotate(720deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        /* ===== INVITATION ===== */
+        .invitation-wrapper {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 1.5s ease 1s, transform 1.5s ease 1s;
+            pointer-events: none;
+        }
+
+        .invite-root.opened .invitation-wrapper {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .invitation-card {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            background: linear-gradient(180deg, #1a0f05 0%, #201208 30%, #1a0f05 70%, #150c03 100%);
+            border: 1.5px solid rgba(201, 168, 76, 0.6);
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(201, 168, 76, 0.06), 0 20px 60px rgba(0, 0, 0, 0.5);
+            padding: 2.5rem 1.5rem 7.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* ===== CORNERS ===== */
+        .corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+        }
+
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+        }
+
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+        }
+
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .corner-tl::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1.5px;
+            background: linear-gradient(90deg, #c9a84c, transparent);
+        }
+
+        .corner-tl::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1.5px;
+            height: 100%;
+            background: linear-gradient(180deg, #c9a84c, transparent);
+        }
+
+        .corner-tr::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 1.5px;
+            background: linear-gradient(-90deg, #c9a84c, transparent);
+        }
+
+        .corner-tr::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1.5px;
+            height: 100%;
+            background: linear-gradient(180deg, #c9a84c, transparent);
+        }
+
+        .corner-bl::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1.5px;
+            background: linear-gradient(90deg, #c9a84c, transparent);
+        }
+
+        .corner-bl::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 1.5px;
+            height: 100%;
+            background: linear-gradient(0deg, #c9a84c, transparent);
+        }
+
+        .corner-br::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 1.5px;
+            background: linear-gradient(-90deg, #c9a84c, transparent);
+        }
+
+        .corner-br::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 1.5px;
+            height: 100%;
+            background: linear-gradient(0deg, #c9a84c, transparent);
+        }
+
+        /* ===== DIAMOND ===== */
+        .diamond-ornament {
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: opacity 0.6s ease 1.6s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s;
+            font-size: 1.5rem;
+        }
+
+        .invite-root.opened .diamond-ornament {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===== NAMES ===== */
+        .invite-names {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(1.5rem, 6vw, 2.3rem);
+            font-weight: 900;
+            color: #e8d5a3;
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 15px rgba(201, 168, 76, 0.25), 0 0 40px rgba(201, 168, 76, 0.08);
+            letter-spacing: 0.04em;
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 1.2s ease 1.8s, transform 1.2s ease 1.8s;
+        }
+
+        .invite-root.opened .invite-names {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== SUBTITLE ===== */
+        .invite-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.75rem, 2.2vw, 0.95rem);
+            color: #d4c4a0;
+            text-align: center;
+            letter-spacing: 0.18em;
+            font-weight: 400;
+            line-height: 1.7;
+            margin-bottom: 0.3rem;
+            opacity: 0;
+            transition: opacity 0.8s ease 2.2s;
+        }
+
+        .invite-root.opened .invite-subtitle {
+            opacity: 1;
+        }
+
+        /* ===== GUEST NAME ===== */
+        .invite-guest-name {
+            font-family: 'MedievalSharp', cursive;
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            color: #e8d5a3;
+            text-align: center;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 2px 8px rgba(232, 213, 163, 0.15);
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 1s ease 2.5s, transform 1s ease 2.5s;
+        }
+
+        .invite-root.opened .invite-guest-name {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===== DIVIDERS ===== */
+        .divider {
+            height: 1px;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+            transform: scaleX(0);
+        }
+
+        .divider-wide {
+            width: 140px;
+            transition: transform 0.8s ease 2.8s;
+        }
+
+        .divider-narrow {
+            width: 80px;
+            transition: transform 0.8s ease 3.4s;
+        }
+
+        .invite-root.opened .divider {
+            transform: scaleX(1);
+        }
+
+        /* ===== BODY ===== */
+        .invite-body {
+            font-family: 'Caudex', serif;
+            font-size: clamp(0.78rem, 2vw, 0.92rem);
+            color: #d4c4a0;
+            text-align: center;
+            line-height: 1.8;
+            font-style: italic;
+            padding: 0 0.8rem;
+            margin-bottom: 1.8rem;
+            opacity: 0;
+            transition: opacity 1.2s ease 3s;
+        }
+
+        .invite-root.opened .invite-body {
+            opacity: 1;
+        }
+
+        .invite-body p {
+            margin-bottom: 0.8rem;
+        }
+
+        .invite-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== LOCATION ===== */
+        .invite-location {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.8s ease 3.5s, transform 0.8s ease 3.5s;
+        }
+
+        .invite-root.opened .invite-location {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .invite-location-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(0.62rem, 1.8vw, 0.78rem);
+            color: #c9a84c;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+            line-height: 1.4;
+        }
+
+        .invite-location-address {
+            font-family: 'Caudex', serif;
+            font-size: clamp(0.55rem, 1.4vw, 0.7rem);
+            color: #d4c4a0;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+            line-height: 1.4;
+            opacity: 0.7;
+        }
+
+        /* ===== ROSES ===== */
+        .roses-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s ease 3.8s, transform 1.2s ease 3.8s;
+        }
+
+        .invite-root.opened .roses-bottom {
+            opacity: 0.85;
+            transform: translateY(0);
+        }
+
+        .roses-bottom::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #1a0f05 0%, transparent 45%);
+            z-index: 1;
+        }
+
+        .roses-bottom img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            filter: brightness(0.5) saturate(1.3);
+            mix-blend-mode: screen;
+        }
+
+        /* ===== GATE ===== */
+        .gate-container {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            display: flex;
+            align-items: stretch;
+            perspective: 1500px;
+            perspective-origin: center center;
+        }
+
+        .gate-half {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            transition: transform 2.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transform-style: preserve-3d;
+            overflow: hidden;
+        }
+
+        .gate-left {
+            transform-origin: left center;
+        }
+
+        .gate-right {
+            transform-origin: right center;
+        }
+
+        .invite-root.opened .gate-left {
+            transform: rotateY(-110deg);
+        }
+
+        .invite-root.opened .gate-right {
+            transform: rotateY(110deg);
+        }
+
+        .gate-half img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.8) contrast(1.1);
+            transition: filter 1.5s ease;
+        }
+
+        .gate-left img {
+            object-position: right center;
+            transform: scaleX(-1);
+        }
+
+        .gate-right img {
+            object-position: left center;
+        }
+
+        .invite-root.opened .gate-half img {
+            filter: brightness(0.3);
+        }
+
+        .gate-shadow-l {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(90deg, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        .gate-shadow-r {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(-90deg, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        /* Center pillar between gate halves */
+        .gate-center-pillar {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            z-index: 21;
+            background: linear-gradient(180deg, #3d3d3d 0%, #2a2a2a 50%, #3d3d3d 100%);
+            box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5), 2px 0 8px rgba(0, 0, 0, 0.5);
+            transition: opacity 1s ease 0.5s;
+        }
+
+        .invite-root.opened .gate-center-pillar {
+            opacity: 0;
+        }
+
+        /* ===== CLICK PROMPT ===== */
+        .click-prompt {
+            position: absolute;
+            bottom: 56px;
+            left: 0;
+            right: 0;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .invite-root.opened .click-prompt {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .click-prompt-text {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.82rem, 2.2vw, 1rem);
+            color: #c9a84c;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-shadow: 0 0 25px rgba(201, 168, 76, 0.4), 0 0 50px rgba(201, 168, 76, 0.2);
+            font-weight: 500;
+            animation: promptPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes promptPulse {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .click-prompt-line {
+            margin-top: 10px;
+            animation: promptPulse 2.5s ease-in-out infinite;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .invitation-card {
+                padding: 2rem 1rem 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invite-root" id="inviteRoot">
+        <!-- Background layers -->
+        <div class="stone-bg"></div>
+        <div class="dark-overlay"></div>
+        <div class="warm-glow"></div>
+        <div class="vignette"></div>
+
+        <!-- Falling petals container -->
+        <div class="petals-container" id="petalsContainer"></div>
+
+        <!-- Invitation card -->
+        <div class="invitation-wrapper">
+            <div class="invitation-card">
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-tr"></div>
+                <div class="corner corner-bl"></div>
+                <div class="corner corner-br"></div>
+
+                <div class="diamond-ornament">◆</div>
+
+                <h1 class="invite-names">BRUNA &<br>LUIS FERNANDO</h1>
+
+                <p class="invite-subtitle">VOS CONVIDAM FORMALMENTE PARA<br>CELEBRAR UMA UNIÃO.</p>
+
+                <div class="divider divider-wide"></div>
+
+                <h2 class="invite-guest-name">Convidado Especial</h2>
+
+                <div class="divider divider-narrow"></div>
+
+                <div class="invite-body">
+                    <p>Há mais de uma década, nossas vidas se tornaram uma só. Dos sonhos da adolescência à chama que mantém aceso o nosso lar, o tempo foi o nosso mestre.</p>
+                    <p>Convidamos você para testemunhar o rito de confirmação de uma história que já é nossa verdade. Junte-se a nós para celebrar o amor que cresceu, resistiu e floresce.</p>
+                </div>
+
+                <div class="invite-location">
+                    <div class="invite-location-title">4 DE JULHO, NA POUSADA DONA NAIR</div>
+                    <div class="invite-location-address">RODOVIA JORGE BASSIL DOWER, KM. 106 – IEPÊ – SP 19640-000</div>
+                </div>
+
+                <div class="roses-bottom">
+                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663394319893/5aDypHqp9Vv4sZjfr7UwPE/dark-roses-bottom-ciyaYizZkCpzDNBGjB9bnR.webp" alt="Rosas decorativas">
+                </div>
+            </div>
+        </div>
+
+        <!-- Gothic gate -->
+        <div class="gate-container">
+            <div class="gate-half gate-left">
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663394319893/5aDypHqp9Vv4sZjfr7UwPE/gothic-gate-right-d9GFKY9nGYnuWMRh5R2P6m.webp" alt="Portão gótico esquerdo">
+                <div class="gate-shadow-l"></div>
+            </div>
+            <div class="gate-half gate-right">
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663394319893/5aDypHqp9Vv4sZjfr7UwPE/gothic-gate-right-d9GFKY9nGYnuWMRh5R2P6m.webp" alt="Portão gótico direito">
+                <div class="gate-shadow-r"></div>
+            </div>
+            <div class="gate-center-pillar"></div>
+        </div>
+
+        <!-- Click prompt -->
+        <div class="click-prompt">
+            <div class="click-prompt-text">TOQUE PARA ABRIR</div>
+            <div class="click-prompt-line">▼</div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize petals
+        function initializePetals() {
+            const petalsContainer = document.getElementById('petalsContainer');
+            const petalCount = 10;
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+
+                const size = Math.random() * 15 + 8;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 12;
+                const duration = Math.random() * 8 + 8;
+                const colors = ['rgb(107, 0, 24)', 'rgb(122, 0, 26)', 'rgb(144, 0, 32)', 'rgb(90, 0, 18)'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const rotation = Math.random() * 360;
+
+                petal.style.left = left + '%';
+                petal.style.width = size + 'px';
+                petal.style.height = (size * 1.2) + 'px';
+                petal.style.background = color;
+                petal.style.boxShadow = `rgba(75, 40, 10, 0.4) -2px -2px 4px inset, rgba(144, 0, 32, 0.3) 0px 0px 6px`;
+                petal.style.animation = `petalFall ${duration}s linear ${delay}s infinite`;
+                petal.style.transform = `rotate(${rotation}deg)`;
+
+                petalsContainer.appendChild(petal);
+            }
+        }
+
+        // Handle invite opening
+        function setupInviteInteraction() {
+            const inviteRoot = document.getElementById('inviteRoot');
+
+            inviteRoot.addEventListener('click', function() {
+                if (!inviteRoot.classList.contains('opened')) {
+                    inviteRoot.classList.add('opened');
+                }
+            });
+
+            // Also allow keyboard interaction
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    if (!inviteRoot.classList.contains('opened')) {
+                        inviteRoot.classList.add('opened');
+                    }
+                }
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePetals();
+            setupInviteInteraction();
+        });
+
+        // Fallback if DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                initializePetals();
+                setupInviteInteraction();
+            });
+        } else {
+            initializePetals();
+            setupInviteInteraction();
+        }
+    </script>
+</body>
+</html>
