@@ -9,6 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Caudex:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     
     <style>
+
+        @font-face {
+            font-family: 'Old London';
+            src: url('OldLondon.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -276,6 +284,28 @@
 
         /* ===== NAMES ===== */
         .invite-names {
+    /* Alterado de 'Cinzel Decorative' para 'Old London' */
+    font-family: 'Old London', 'Blackletter', serif; 
+    
+    /* Ajustes de estilo para combinar com a estética da fonte */
+    font-size: clamp(3rem, 8vw, 2.8rem); 
+    font-weight: 100; /* Fontes góticas geralmente não precisam de 900 */
+    color: #e8d5a3;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    
+    /* Brilho e sombras */
+    text-shadow: 0 2px 15px rgba(201, 168, 76, 0.25), 
+                 0 0 40px rgba(201, 168, 76, 0.08);
+    
+    /* Espaçamento e Animação */
+    letter-spacing: 0.06em;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1.2s ease 1.8s, transform 1.2s ease 1.8s;
+}
+        /* .invite-names {
             font-family: 'Cinzel Decorative', serif;
             font-size: clamp(1.5rem, 6vw, 2.3rem);
             font-weight: 900;
@@ -288,7 +318,7 @@
             opacity: 0;
             transform: translateY(25px);
             transition: opacity 1.2s ease 1.8s, transform 1.2s ease 1.8s;
-        }
+        } */
 
         .invite-root.opened .invite-names {
             opacity: 1;
@@ -362,7 +392,7 @@
             line-height: 1.8;
             font-style: italic;
             padding: 0 0.8rem;
-            margin-bottom: 1.0rem;
+            margin-bottom: 1.2rem;
             opacity: 0;
             transition: opacity 1.2s ease 3s;
         }
@@ -648,7 +678,7 @@
 
                 <div class="diamond-ornament">◆</div>
 
-                <h1 class="invite-names">BRUNA &<br>LUIS FERNANDO</h1>
+                <h1 class="invite-names">Bruna &<br>Luis Fernando</h1>
 
                 <p class="invite-subtitle">VOS CONVIDAM FORMALMENTE PARA<br>CELEBRAR UMA UNIÃO.</p>
 
