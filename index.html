@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Caudex:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     
     <style>
-
+        @import url('https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
         @font-face {
             font-family: 'Old London';
             src: url('OldLondon.ttf') format('truetype');
@@ -327,6 +328,27 @@
 
         /* ===== SUBTITLE ===== */
         .invite-subtitle {
+    /* Alterado de 'Cinzel' para 'Caudex' */
+    font-family: 'Caudex', serif;
+    
+    /* Mantive o tamanho clamp, mas a Caudex costuma preencher melhor o espaço */
+    font-size: clamp(0.85rem, 2.5vw, 1.05rem); 
+    
+    color: #d4c4a0;
+    text-align: center;
+    
+    /* Ajustado para dar elegância sem separar demais as letras dessa fonte específica */
+    letter-spacing: 0.12em; 
+    
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 0.3rem;
+    
+    /* Mantendo suas animações originais */
+    opacity: 0;
+    transition: opacity 0.8s ease 2.2s;
+}
+        /* .invite-subtitle {
             font-family: 'Cinzel', serif;
             font-size: clamp(0.75rem, 2.2vw, 0.95rem);
             color: #d4c4a0;
@@ -337,7 +359,7 @@
             margin-bottom: 0.3rem;
             opacity: 0;
             transition: opacity 0.8s ease 2.2s;
-        }
+        } */
 
         .invite-root.opened .invite-subtitle {
             opacity: 1;
@@ -345,6 +367,28 @@
 
         /* ===== GUEST NAME ===== */
         .invite-guest-name {
+    /* Alterado para Great Vibes (estilo caligrafia) */
+    font-family: 'Great Vibes', cursive;
+    
+    /* Aumentei levemente o tamanho, pois fontes cursivas tendem a parecer menores */
+    font-size: clamp(2.2rem, 8vw, 3.5rem); 
+    
+    color: #e8d5a3;
+    text-align: center;
+    margin-bottom: 1.2rem;
+    
+    /* Sombras mais suaves para não "borrar" o desenho fino da caligrafia */
+    text-shadow: 0 2px 8px rgba(232, 213, 163, 0.15);
+    
+    /* Mantendo suas animações de escala e opacidade */
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 1s ease 2.5s, transform 1s ease 2.5s;
+    
+    /* Removendo o negrito excessivo para preservar os traços finos */
+    font-weight: 400; 
+}
+        /* .invite-guest-name {
             font-family: 'MedievalSharp', cursive;
             font-size: clamp(1.8rem, 6vw, 2.8rem);
             color: #e8d5a3;
@@ -354,7 +398,7 @@
             opacity: 0;
             transform: scale(0.85);
             transition: opacity 1s ease 2.5s, transform 1s ease 2.5s;
-        }
+        } */
 
         .invite-root.opened .invite-guest-name {
             opacity: 1;
@@ -392,7 +436,7 @@
             line-height: 1.8;
             font-style: italic;
             padding: 0 0.8rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             opacity: 0;
             transition: opacity 1.2s ease 3s;
         }
