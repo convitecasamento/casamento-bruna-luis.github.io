@@ -581,6 +581,44 @@
             animation: promptPulse 2.5s ease-in-out infinite;
         }
 
+        /* ===== ROSES CLICK PROMPT ===== */
+        .roses-click-prompt {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s ease 4.2s;
+        }
+
+        .invite-root.opened .roses-click-prompt {
+            opacity: 1;
+        }
+
+        .roses-click-prompt-text {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.82rem, 2.2vw, 1rem);
+            color: #c9a84c;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-shadow: 0 0 25px rgba(201, 168, 76, 0.4), 0 0 50px rgba(201, 168, 76, 0.2);
+            font-weight: 500;
+            animation: promptPulse 2.5s ease-in-out infinite;
+        }
+
+        .roses-click-prompt-line {
+            margin-top: 8px;
+            color: #c9a84c;
+            font-size: 0.85rem;
+            animation: promptPulse 2.5s ease-in-out infinite;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .invitation-card {
@@ -631,6 +669,10 @@
                 </div>
 
                 <div class="roses-bottom">
+                    <div class="roses-click-prompt">
+                        <div class="roses-click-prompt-text">CLIQUE AQUI</div>
+                        <div class="roses-click-prompt-line">▼</div>
+                    </div>
                     <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663394319893/5aDypHqp9Vv4sZjfr7UwPE/dark-roses-bottom-ciyaYizZkCpzDNBGjB9bnR.webp" alt="Rosas decorativas">
                 </div>
             </div>
