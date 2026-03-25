@@ -24,9 +24,14 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: auto;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Caudex', serif;
-            overflow-x: hidden;
         }
 
         .invite-root {
@@ -536,6 +541,11 @@
             align-items: stretch;
             perspective: 1500px;
             perspective-origin: center center;
+        }
+
+        /* Permite que o toque passe através do container do portão quando aberto */
+        .invite-root.opened .gate-container {
+            pointer-events: none;
         }
 
         .gate-half {
