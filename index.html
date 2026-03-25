@@ -26,13 +26,12 @@
 
         body {
             font-family: 'Caudex', serif;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .invite-root {
             width: 100vw;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
             position: relative;
             background: #1a0f05;
             cursor: pointer;
@@ -42,7 +41,7 @@
 
         /* ===== BACKGROUNDS ===== */
         .stone-bg {
-            position: absolute;
+            position: fixed;
             inset: 0;
             z-index: 0;
             background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663394319893/5aDypHqp9Vv4sZjfr7UwPE/gothic-stone-bg-V3V3ZePUr29Ry5AdR3gL6t.webp');
@@ -52,14 +51,14 @@
         }
 
         .dark-overlay {
-            position: absolute;
+            position: fixed;
             inset: 0;
             z-index: 1;
             background: radial-gradient(ellipse at center, rgba(26, 15, 5, 0.4) 0%, rgba(26, 15, 5, 0.92) 100%);
         }
 
         .warm-glow {
-            position: absolute;
+            position: fixed;
             inset: 0;
             z-index: 2;
             background: radial-gradient(ellipse 40% 50% at center, rgba(201, 168, 76, 0.08) 0%, transparent 100%);
@@ -71,7 +70,7 @@
         }
 
         .vignette {
-            position: absolute;
+            position: fixed;
             inset: 0;
             z-index: 3;
             pointer-events: none;
@@ -80,7 +79,7 @@
 
         /* ===== FALLING PETALS ===== */
         .petals-container {
-            position: absolute;
+            position: fixed;
             inset: 0;
             z-index: 8;
             pointer-events: none;
@@ -129,14 +128,14 @@
 
         /* ===== INVITATION ===== */
         .invitation-wrapper {
-            position: absolute;
-            inset: 0;
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
             z-index: 5;
             display: flex;
             align-items: flex-start;
             justify-content: center;
             padding: 40px 20px;
-            overflow-y: auto;
             opacity: 0;
             transform: scale(0.92);
             transition: opacity 1.5s ease 1s, transform 1.5s ease 1s;
@@ -530,7 +529,7 @@
 
         /* ===== GATE ===== */
         .gate-container {
-            position: absolute;
+            position: fixed;
             inset: 0;
             z-index: 20;
             display: flex;
@@ -620,7 +619,7 @@
 
         /* ===== CLICK PROMPT ===== */
         .click-prompt {
-            position: absolute;
+            position: fixed;
             bottom: 56px;
             left: 0;
             right: 0;
